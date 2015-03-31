@@ -482,6 +482,18 @@ namespace MaterialUI
 			theThing.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 		}
 
+		[MenuItem("GameObject/MaterialUI/Toast Manager", false, 13)]
+		[MenuItem("MaterialUI/Create/Toast Manager", false, 13)]
+		private static void CreateToastManager()
+		{
+			theThing =
+				GameObject.Instantiate(AssetDatabase.LoadAssetAtPath("Assets/MaterialUI/ComponentPrefabs/ToastManager.prefab",
+					typeof(GameObject))) as GameObject;
+			SetupObject("Toast Manager");
+			theThing.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+			theThing.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+		}
+
 		[MenuItem("Component/MaterialUI/Ripple Config")]
 		[MenuItem("MaterialUI/Add Component/Ripple Config")]
 		private static void AddRippleConfig()
@@ -538,21 +550,6 @@ namespace MaterialUI
 				if (GameObject.Find(selectedObject.name))
 				{
 					selectedObject.AddComponent<ShadowGen>();
-				}
-			}
-		}
-
-		[MenuItem("Component/MaterialUI/Toaster")]
-		[MenuItem("MaterialUI/Add Component/Toaster")]
-		private static void AddToaster()
-		{
-			selectedObject = Selection.activeGameObject;
-
-			if (selectedObject)
-			{
-				if (GameObject.Find(selectedObject.name))
-				{
-					selectedObject.AddComponent<Toaster>();
 				}
 			}
 		}

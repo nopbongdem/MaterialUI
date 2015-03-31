@@ -36,13 +36,13 @@ namespace MaterialUI
 			offPos = new Vector2 (Screen.width / 2, Screen.height / 10);
 			thisRect.position = offPos;
 
-			timeToWait = ToastControl.toastDuration;
-			text.text = ToastControl.toastText;
-			panelImage.color = ToastControl.toastPanelColor;
-			text.color = ToastControl.toastTextColor;
-			text.fontSize = ToastControl.toastFontSize;
+			timeToWait = ToastManager.toastDuration;
+			text.text = ToastManager.toastText;
+			panelImage.color = ToastManager.toastPanelColor;
+			text.color = ToastManager.toastTextColor;
+			text.fontSize = ToastManager.toastFontSize;
 
-			transform.SetParent(ToastControl.parentCanvas.transform);
+			transform.SetParent(ToastManager.parentCanvas.transform);
 			transform.localScale = new Vector3 (1, 1, 1);
 
 			canvasGroup.alpha = 0;
