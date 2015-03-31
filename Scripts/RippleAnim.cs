@@ -64,7 +64,7 @@ namespace MaterialUI
 	//		Sets the ink blot to draw behind all other siblings (text, icon etc)
 			thisRect.SetAsFirstSibling ();
 
-			thisRect.sizeDelta = new Vector2 (size * 1.5f, size * 1.5f);
+			thisRect.sizeDelta = new Vector2 (size, size);
 			thisRect.localScale = new Vector3(0f, 0f, 1f);
 
 			if (gameObject.GetComponentInParent<MaterialUIScaler> ())
@@ -130,6 +130,7 @@ namespace MaterialUI
 		void Update ()
 		{
 			animDeltaTime = Time.realtimeSinceStartup - animStartTime;
+			animFirstDeltaTime = Time.realtimeSinceStartup - animFirstStartTime;
 
 			if (state == 1)    // After initiated
 			{
@@ -151,8 +152,8 @@ namespace MaterialUI
 					if (moveTowardCenter)
 					{
 						Vector3 tempVec3 = thisRect.position;
-						tempVec3.x = Anim.Quint.Out(startPos.x, endPos.x, animDeltaTime, 4 / animationSpeed);
-						tempVec3.y = Anim.Quint.Out(startPos.y, endPos.y, animDeltaTime, 4 / animationSpeed);
+						tempVec3.x = Anim.Quint.Out(startPos.x, endPos.x, animFirstDeltaTime, 4 / animationSpeed);
+						tempVec3.y = Anim.Quint.Out(startPos.y, endPos.y, animFirstDeltaTime, 4 / animationSpeed);
 						thisRect.position = tempVec3;
 					}
 				}
@@ -167,14 +168,7 @@ namespace MaterialUI
 			{
 				if (thisImage.color.a > 0f)
 				{
-					animFirstDeltaTime = Time.realtimeSinceStartup - animFirstStartTime;
-
-	//				Expand
-					tempRect = thisRect.localScale;
-					tempRect.x = Anim.Quint.Out(clearInkSize, endScale, animDeltaTime, 6 / animationSpeed);
-					tempRect.y = tempRect.x;
-					tempRect.z = 1f;
-					thisRect.localScale = tempRect;
+	
 
 	//				Fade
 					tempColor = thisImage.color;
@@ -184,10 +178,26 @@ namespace MaterialUI
 	//				Move toward center of parent
 					if (moveTowardCenter)
 					{
+	//					Expand
+						tempRect = thisRect.localScale;
+						tempRect.x = Anim.Quint.Out(0f, endScale, animFirstDeltaTime, 4/animationSpeed);
+						tempRect.y = tempRect.x;
+						tempRect.z = 1f;
+						thisRect.localScale = tempRect;
+
 						Vector3 tempVec3 = thisRect.position;
-						tempVec3.x = Anim.Quint.Out(startPos.x, endPos.x, animFirstDeltaTime, 4 / animationSpeed);
-						tempVec3.y = Anim.Quint.Out(startPos.y, endPos.y, animFirstDeltaTime, 4 / animationSpeed);
+						tempVec3.x = Anim.Quint.Out(startPos.x, endPos.x, animFirstDeltaTime, 4/animationSpeed);
+						tempVec3.y = Anim.Quint.Out(startPos.y, endPos.y, animFirstDeltaTime, 4/animationSpeed);
 						thisRect.position = tempVec3;
+					}
+					else
+					{
+	//					Expand
+						tempRect = thisRect.localScale;
+						tempRect.x = Anim.Quint.Out(clearInkSize, endScale, animDeltaTime, 4 / animationSpeed);
+						tempRect.y = tempRect.x;
+						tempRect.z = 1f;
+						thisRect.localScale = tempRect;
 					}
 				}
 				else
